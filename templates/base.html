@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js">
+{% include 'includes/head.html' %}
+
+<body>
+ <!--
+    ==================================================
+    Header Section Start
+    ================================================== -->
+    {% include 'includes/header.html' %}
+    {% block content %}
+
+    {% endblock %}
+    
+    <!--
+
+    ==================================================
+    Call To Action Section Start
+    ================================================== -->
+    {% include 'includes/contact.html' %}
+
+    <!--
+    ==================================================
+    Footer Section Start
+    ================================================== -->
+    {% include 'includes/footer.html' %}
+    <!-- /#footer -->
+
+    <!-- Template Javascript Files
+	================================================== -->
+    {% include 'includes/script.html' %}
+</body>
+
+</html>
