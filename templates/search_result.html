@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>This is the results of search </h1>
+    {% for post in queryset %}
+        <br>
+        <br>
+        <a href="{{post.get_absolute_url}}">{{ post.title }}</a>
+    {% empty %}
+        <br>
+        <br>
+        <h3>Plz serach .. No Post here</h3>
+        <a href="{% url 'posts' %}">Click here</a>
+    {% endfor %}
+{% endblock %}

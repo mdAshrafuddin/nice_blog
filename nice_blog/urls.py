@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from posts.views import index, about, service, post, contact
+from django.urls import path, include
+from posts.views import (
+    index, about, service, post, contact,single_post, search, create,post_update, post_delete
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +27,13 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('service/', service, name='service'),
     path('posts/', post, name='posts'),
+    path('single-post/<id>/', single_post, name='post_details'),
     path('contact/', contact, name='contact'),
+    path('tinymce/', include('tinymce.urls')),
+    path('search/', search, name='search'),
+    path('create/', create, name='create'),
+    path('update/<id>/', post_update, name='update'),
+    path('delete/<id>/', post_delete, name='delete'),
 ]
 
 if settings.DEBUG:

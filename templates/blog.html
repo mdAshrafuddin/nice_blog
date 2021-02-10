@@ -8,107 +8,75 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                {% if posts %}
+                {% for post in posts %}
                 <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
                     <div class="blog-post-image">
-                        <a href="post-fullwidth.html"><img class="img-fluid" src="images/blog/post-1.jpg" alt="" /></a>
+                        <a href="post-fullwidth.html"><img class="img-fluid" src="{{ post.image.url }}" alt="" /></a>
                     </div>
                     <div class="blog-content">
                         <h2 class="blogpost-title">
-                        <a href="post-fullwidth.html">Space shouldn’t be the final frontier</a>
+                        <a href="post-fullwidth.html">{{ post.title }}</a>
                         </h2>
                         <div class="blog-meta">
                             <span>Dec 11, 2020</span>
-                            <span>by <a href="">Admin</a></span>
-                            <span><a href="">business</a>,<a href="">people</a></span>
+                            <span>by <a href="">{{ post.author }}</a></span>
+                            
+                            {% for cat in post.categories.all %}
+                            <span><a href="">{{ cat }}</a>,
+                            {% endfor %}
+
+                            
+
                         </div>
-                        <p>Ultrices posuere cubilia curae curabitur sit amet tortor ut massa commodo. Vestibulum consectetur euismod malesuada tincidunt cum. Sed ullamcorper dignissim consectetur ut tincidunt eros sed sapien consectetur dictum. Pellentesques sed volutpat ante, cursus port. Praesent mi magna, penatibus et magniseget dis parturient montes sed quia consequuntur magni dolores eos qui ratione.
-                        </p>
-                        <a href="single-post.html" class="btn btn-dafault btn-details hvr-bounce-to-right">Continue Reading</a>
+                        <p>{{ post.content }}.</p>
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-dafault btn-details hvr-bounce-to-right">Continue Reading</a>
                     </div>
-                    
                 </article>
-                <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
-                    <div class="blog-post-image">
-                        <a href="post-fullwidth.html"><img class="img-fluid" src="images/blog/post-2.jpg" alt="" /></a>
-                    </div>
-                    <div class="blog-content">
-                        <h2 class="blogpost-title">
-                        <a href="post-fullwidth.html">Space shouldn’t be the final frontier</a>
-                        </h2>
-                        <div class="blog-meta">
-                            <span>Dec 11, 2020</span>
-                            <span>by <a href="">Admin</a></span>
-                            <span><a href="">business</a>,<a href="">people</a></span>
-                        </div>
-                        <p>Ultrices posuere cubilia curae curabitur sit amet tortor ut massa commodo. Vestibulum consectetur euismod malesuada tincidunt cum. Sed ullamcorper dignissim consectetur ut tincidunt eros sed sapien consectetur dictum. Pellentesques sed volutpat ante, cursus port. Praesent mi magna, penatibus et magniseget dis parturient montes sed quia consequuntur magni dolores eos qui ratione.
-                        </p>
-                        <a href="single-post.html" class="btn btn-dafault btn-details hvr-bounce-to-right">Continue Reading</a>
-                    </div>
-                    
-                </article>
-                <article class="wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">
-                    <div class="blog-post-image">
-                        <a href="post-fullwidth.html"><img class="img-fluid" src="images/blog/post-3.jpg" alt="" /></a>
-                    </div>
-                    <div class="blog-content">
-                        <h2 class="blogpost-title">
-                        <a href="post-fullwidth.html">Space shouldn’t be the final frontier</a>
-                        </h2>
-                        <div class="blog-meta">
-                            <span>Dec 11, 2020</span>
-                            <span>by <a href="">Admin</a></span>
-                            <span><a href="">business</a>,<a href="">people</a></span>
-                        </div>
-                        <p>Ultrices posuere cubilia curae curabitur sit amet tortor ut massa commodo. Vestibulum consectetur euismod malesuada tincidunt cum. Sed ullamcorper dignissim consectetur ut tincidunt eros sed sapien consectetur dictum. Pellentesques sed volutpat ante, cursus port. Praesent mi magna, penatibus et magniseget dis parturient montes sed quia consequuntur magni dolores eos qui ratione.
-                        </p>
-                        <a href="single-post.html" class="btn btn-dafault btn-details hvr-bounce-to-right">Continue Reading</a>
-                    </div>
-                    
-                </article>
+                {% endfor %}
+                {% else  %}
+                <h1>Sorry, no posts in this list</h1>
+                {% endif %}
             </div>
             <!-- Sidebar -->
             <div class="col-md-4">
                 <div class="sidebar">
                     <div class="search widget">
-                        <form action="" method="get" class="searchform" role="search">
+                        <form action="{% url 'search' %}" class="searchform" role="search">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
+                                <input type="text" name='q' class="form-control" placeholder="Search for...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"> <i class="ion-search"></i> </button>
+                                    <button class="btn btn-default" type="submit"> <i class="ion-search"></i> </button>
                                 </span>
                                 </div><!-- /input-group -->
                             </form>
                         </div>
+           
                         <div class="author widget">
-                            <img class="img-fluid" src="images/author/author-bg.jpg">
+                            <img class="img-fluid" src="pnj.jpj">
                             <div class="author-body text-center">
                                 <div class="author-img">
-                                    <img src="images/author/author.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="author-bio">
-                                    <h3>Jonathon Andrew</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt magnam asperiores consectetur, corporis ullam impedit.</p>
+                                    <h3>{{ get_author_query }}</h3>
+                                    <p>{{ posts.post.content }}</p>
                                 </div>
                             </div>
+                            
                         </div>
+
+
                         <div class="categories widget">
                             <h3 class="widget-head">Categories</h3>
                             <ul>
+                                <!-- print(cat_queryset) -->
+                                {% for cat in cat_queryset %}
                                 <li>
-                                    <a href="">Audio</a> <span class="badge">1</span>
+                                    <a href="{{ cat.get_absolute_url }}">{{ cat.category__name | slice:":20" }}</a> <span class="badge">{{ cat.category__name__count }}</span>
                                 </li>
-                                <li>
-                                    <a href="">Gallery</a> <span class="badge">2</span>
-                                </li>
-                                <li>
-                                    <a href="">Image</a> <span class="badge">4</span>
-                                </li>
-                                <li>
-                                    <a href="">Standard</a> <span class="badge">2</span>
-                                </li>
-                                <li>
-                                    <a href="">Status</a> <span class="badge">3</span>
-                                </li>
+                                {% endfor %}
+
                             </ul>
                         </div>
                         
@@ -116,26 +84,12 @@
                             <h3>Recent Posts</h3>
                             
                             <ul>
+                                {% for post in posts %}
                                 <li>
-                                    <a href="#">Corporate meeting turns into a photoshooting.</a><br>
-                                    <time>16 May, 2015</time>
+                                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a><br>
+                                    <time>{{ post.create_on }}</time>
                                 </li>
-                                <li>
-                                    <a href="#">Statistics,analysis. The key to succes.</a><br>
-                                    <time>15 May, 2015</time>
-                                </li>
-                                <li>
-                                    <a href="#">Blog post without image, only text.</a><br>
-                                    <time>14 May, 2015</time>
-                                </li>
-                                <li>
-                                    <a href="#">Blog post with audio player. Share your creations.</a><br>
-                                    <time>14 May, 2015</time>
-                                </li>
-                                <li>
-                                    <a href="#">Blog post with classic Youtbube player.</a><br>
-                                    <time>12 May, 2015</time>
-                                </li>
+                                {% endfor %}
                             </ul>
                             
                         </div>
